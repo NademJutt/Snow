@@ -4,6 +4,7 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
+//use Illuminate\Support\Facades\Mail;
 use App\Models\Children;
 use App\Models\Customermeta;
 use Sentinel;
@@ -17,7 +18,7 @@ class CustomerController extends Controller
     	//$name = $request->input('memberships');
 
     	$request->session()->forget('kids');
-        $request->session()->forget('childernIds');
+        //$request->session()->forget('childernIds');
         $request->session()->forget('child');
         
         $memberships = $request->input('memberships');
@@ -33,23 +34,23 @@ class CustomerController extends Controller
     	
     }
 
-    public function storeChild(Request $request)
-    { 
-        $request->validate([
-            'first_name'      => 'required',
-            'last_name'       => 'required',
-            'category'        => 'required',
-            'experience'      => 'required',
-            'dob'             => 'required',
-            'childphone'      => 'required',
-            'gender'          => 'required',
+    public function storeChildren(Request $request)
+    {         
+        // $request->validate([
+        //     'first_name'      => 'required',
+        //     'last_name'       => 'required',
+        //     'category'        => 'required',
+        //     'experience'      => 'required',
+        //     'dob'             => 'required',
+        //     'childphone'      => 'required',
+        //     'gender'          => 'required',
 
-        ]);
-
-        $childrens = $request->get('childern'); 
-        session()->put('child',$childrens);
+        // ]);        
+        $childrens = $request['childern']; 
+        // session()->put('child',$childrens);
+        $request->session()->flash('child' ,$childrens);
+        $getChild = session('kids'); 
         return view('customer.parent-info');
-
     }
 
     public function storeCustomer(Request $request)
@@ -98,8 +99,14 @@ class CustomerController extends Controller
             $child->childphone   = $childern['childphone'];
             $child->gender       = $childern['gender'];
             $child->user_id      =  $user['id'];
-            $result = $child->save();    
+            $result = $child->save();     
         }
+
+        // Mail::send('emails.customer', $user->toArray(), 
+        //     function($message){
+        //     $message->to($user->email)
+        //     ->subject('Your Registration completed.');
+        // });
 
 
         return redirect('/thankyou');

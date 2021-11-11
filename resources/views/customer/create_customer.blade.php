@@ -32,7 +32,7 @@
 
         <h6>Enter your child's information </h6>
 
-        <form method="post" action="/store.child">
+        <form  action="{{route('store_children')}}" method="POST">
           @csrf
           @for($i = 1; $i <= $number_of_childern ; $i++ )
           <p>

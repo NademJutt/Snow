@@ -13,7 +13,7 @@
   body{
     font-family: serif;
   }
-  button{
+  button{ 
     font-size: 25px;
     margin-top: 15px;
     background-color: #008CBA;

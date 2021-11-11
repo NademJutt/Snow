@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Frontend\FrontendController;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +24,14 @@ Route::get('/', function () {
 
 // Logout
 Route::post('/logout', [LoginController::class,'logout']);
+
+// Membership
+Route::view('/membership', 'customer.membership');
+Route::post('/add_child', [CustomerController::class,'addChild']);
+Route::post('/store-children', [CustomerController::class,'storeChildren'])->name('store_children');
+Route::post('/store_customer', [CustomerController::class,'storeCustomer']);
+Route::get('/thankyou', [CustomerController::class,'thankYou']);
+
 
 // Admin
 Route::group(['middleware' => 'admin'], function() {
@@ -57,12 +65,7 @@ Route::post('/register', [RegistrationController::class,'postRegister']);
 Route::get('/login', [LoginController::class,'login']);
 Route::post('/login', [LoginController::class,'postLogin']);
 
-// Membership
-Route::view('/membership', 'customer.membership');
-Route::post('/add_child', [CustomerController::class,'addChild']);
-Route::post('/store.child', [CustomerController::class,'storeChild']);
-Route::post('/store_customer', [CustomerController::class,'storeCustomer']);
-Route::get('/thankyou', [CustomerController::class,'thankYou']);
+
 
 
 

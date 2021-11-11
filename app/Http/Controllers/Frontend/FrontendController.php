@@ -29,56 +29,42 @@ class FrontendController extends Controller
     // Update customer 
     public function updateCustomer(Request $request)
     {
-       
-        $user =  Sentinel::getUser(); 
+        $user =  Sentinel::getUser();
 
-        if($request->filled('password')){
-            if($request->password == $request->password_confirmation ){
-                $credentials = [
-                    'first_name'  => $request->input('first_name'),
-                    'last_name'   => $request->input('last_name'),
-                    'password'   => $request->input('password')
-                ]; 
-
-                Sentinel::update($user, $credentials);
-                $data = [
-                    'address'          => $request->input('address'), 
-                    'city'             => $request->input('city'),
-                    'state'            => $request->input('state'),
-                    'zip'              => $request->input('zip'),         
-                    'mobile'           => $request->input('mobile'),
-                    'contact'          => $request->input('contact')
-                ];
-                Customermeta::where('user_id', $user->id)->update($data);
-
-                return redirect()->back()->with('success', 'Customer data have been Updated successfully.');
-
-                }else{
-                    return redirect()->back()->with('error', 'Password does not match!');
-            } 
-        }else{
-            $request->validate([
+        $request->validate([
             'first_name'            => 'required',
             'last_name'             => 'required',
-            ]);
-             $credentials = [
+        ]);
+
+        $credentials = [
                 'first_name'  => $request->input('first_name'),
                 'last_name'   => $request->input('last_name'),
-            ];
+        ];
 
-                Sentinel::update($user, $credentials);
-                $data = [
-                    'address'          => $request->input('address'), 
-                    'city'             => $request->input('city'),
-                    'state'            => $request->input('state'),
-                    'zip'              => $request->input('zip'),         
-                    'mobile'           => $request->input('mobile'),
-                    'contact'          => $request->input('contact')
-                ];
-                Customermeta::where('user_id', $user->id)->update($data);
+        if($request->filled('password')){ 
 
-                return redirect()->back()->with('success', 'Customer data have been Updated successfully.');
+            $request->validate([
+                'password'            => 'required|confirmed',
+            ]);
+
+            array_push($credentials, ['password'   => $request->input('password')]);
         }
+
+        Sentinel::update($user, $credentials);
+
+        $data = [
+            'address'          => $request->input('address'), 
+            'city'             => $request->input('city'),
+            'state'            => $request->input('state'),
+            'zip'              => $request->input('zip'),         
+            'mobile'           => $request->input('mobile'),
+            'contact'          => $request->input('contact')
+        ];
+        Customermeta::where('user_id', $user->id)->update($data);
+
+        return redirect()->back()->with('success', 'Customer data have been Updated successfully.');
+
+        
         
     }
 

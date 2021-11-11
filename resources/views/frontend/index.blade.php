@@ -12,17 +12,8 @@
 
     </h2>
 
-    @if($message = Session::get('success'))
-      <div class="alert alert-success">
-          <p>{{ $message }}</p>
-      </div>
-    @endif
-
-    @if($message = Session::get('error'))
-      <div class="alert alert-danger">
-          <p>{{ $message }}</p>
-      </div>
-    @endif
+   
+    @include('errors')
 
     <br>
 
@@ -40,7 +31,7 @@
                   <th>ID</th>
                   <th>Name</th>
                   <th>Childrens</th>
-                  <th>eMail</th>
+                  <th>Email</th>
                   <th>Address</th>
                   <th>City</th>
                   <th>State</th>
