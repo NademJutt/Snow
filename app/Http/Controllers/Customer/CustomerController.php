@@ -4,21 +4,19 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; 
-//use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Children;
 use App\Models\Customermeta;
 use Sentinel;
 use Session;
-
+//use App\Mail\CustomerMail;
 
 class CustomerController extends Controller
 { 
     public function addChild(Request $request)
     {
-    	//$name = $request->input('memberships');
 
     	$request->session()->forget('kids');
-        //$request->session()->forget('childernIds');
         $request->session()->forget('child');
         
         $memberships = $request->input('memberships');
@@ -29,39 +27,32 @@ class CustomerController extends Controller
         // set varible from sesssion 
         $number_of_childern = session('kids'); 
 
-
     	return view('customer.create_customer', compact('number_of_childern'));
     	
     }
 
     public function storeChildren(Request $request)
     {         
-        // $request->validate([
-        //     'first_name'      => 'required',
-        //     'last_name'       => 'required',
-        //     'category'        => 'required',
-        //     'experience'      => 'required',
-        //     'dob'             => 'required',
-        //     'childphone'      => 'required',
-        //     'gender'          => 'required',
+            
+        $request->validate([
+            'childern'      => 'required|array',
+        ]);  
 
-        // ]);        
         $childrens = $request['childern']; 
-        // session()->put('child',$childrens);
-        $request->session()->flash('child' ,$childrens);
-        $getChild = session('kids'); 
+        session()->put('child',$childrens);
         return view('customer.parent-info');
     }
 
     public function storeCustomer(Request $request)
     {
-        $request->validate([
-            'first_name'            => 'required',
-            'last_name'             => 'required',
-            'email'                 => 'required|email',
-            'password'              => 'required|confirmed',
-            'password_confirmation' => 'required'
-        ]);
+       
+        // $request->validate([
+        //     'first_name'            => 'required',
+        //     'last_name'             => 'required',
+        //     'email'                 => 'required|email',
+        //     'password'              => 'required|confirmed',
+        //     'password_confirmation' => 'required'
+        // ]);
 
         $credentials = [
                 'first_name'  => $request->input('first_name'),
@@ -86,7 +77,7 @@ class CustomerController extends Controller
         ]);
 
         $childrens = session('child'); 
-        //dd($children); 
+      
 
         foreach ($childrens as $childern) {
             
@@ -102,11 +93,13 @@ class CustomerController extends Controller
             $result = $child->save();     
         }
 
-        // Mail::send('emails.customer', $user->toArray(), 
-        //     function($message){
-        //     $message->to($user->email)
-        //     ->subject('Your Registration completed.');
-        // });
+        Mail::send('mails.customer', $user->toArray(), 
+            function($message) use ($user ) {
+             $message->to($user->email);
+
+             $message->subject("Hello $user->first_name,
+                        reset your password.");
+        });
 
 
         return redirect('/thankyou');

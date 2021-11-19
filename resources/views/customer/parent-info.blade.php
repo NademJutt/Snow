@@ -28,7 +28,7 @@
 
             <h3 class="panel-title"> Enter Your Information </h3>
 
-            @if($errors->any())
+            <!-- @if($errors->any())
             <div class="alert alert-danger">
               <strong>Whoops!</strong> There were some problem with your input.<br><br>
               <ul>
@@ -37,33 +37,33 @@
                 @endforeach
               </ul>
             </div>
-            @endif
+            @endif -->
 
             <form action="/store_customer" method="post">
               @csrf
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>First Name</label>
-                  <input type="text" name="first_name" class="form-control" >
+                  <input type="text" name="first_name" class="form-control" required >
                 </div>
                 <div class="form-group col-md-6">
                   <label>Last Name</label>
-                  <input type="text" name="last_name" class="form-control">
+                  <input type="text" name="last_name" class="form-control" required>
                 </div>
               </div>
               <div class="form-group">
                 <label>Address</label>
-                <input type="text" name="address" class="form-control">
+                <input type="text" name="address" class="form-control" required>
               </div>
          
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="inputCity">City</label>
-                  <input type="text" name="city" class="form-control" id="inputCity">
+                  <input type="text" name="city" class="form-control" id="inputCity" required>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputState">State</label>
-                  <select id="inputState" name="state" class="form-control">
+                  <select id="inputState" name="state" class="form-control" required>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -119,44 +119,44 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputZip">Zip</label>
-                  <input type="text" name="zip" class="form-control">
+                  <input type="text" name="zip" class="form-control" required>
                 </div>
               </div>
 
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>Email</label>
-                  <input type="email" name="email" class="form-control">
+                  <input type="email" name="email" class="form-control" required>
                 </div>
                 <div class="form-group col-md-6">
                   <label>Mobile</label>
-                  <input type="text" name="mobile" class="form-control">
+                  <input type="text" name="mobile" class="form-control" required>
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Create Password</label>
-                  <input type="password" name="password" class="form-control">
+                  <input type="password" name="password" class="form-control" required>
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Repeat Password</label>
-                  <input type="password" name="password_confirmation" class="form-control">
+                  <input type="password" name="password_confirmation" class="form-control" required>
                </div>
               </div>
               
               <div><label>Preferred Communication</label></div> 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="contact" value="eMail">
+                <input class="form-check-input" type="radio" name="contact" value="eMail" required>
                 <label class="form-check-label" for="skier">Email</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="contact" value="Text Message">
+                <input class="form-check-input" type="radio" name="contact" value="Text Message" required>
                 <label class="form-check-label" for="snowboard">Text Message</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="contact" value="Both">
+                <input class="form-check-input" type="radio" name="contact" value="Both" required>
                 <label class="form-check-label" for="both">Both</label>
               </div>
               <div>
@@ -168,7 +168,7 @@
       </div>
     </div>
   </body>
-</html>
+</html> 
 
 
 

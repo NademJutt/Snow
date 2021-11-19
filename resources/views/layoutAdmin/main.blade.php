@@ -27,8 +27,21 @@
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+
 </head>
+ 
+<script>
+  $(document).ready(function(){
+    $(".date").datepicker({dateFormat:'mm-dd-yy'});
+  });
+
+</script>
+
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -191,11 +204,11 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-2 ab">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
           <li class="nav-item ">
-            <a href="/customers" class="nav-link active">
+            <a href="/customers" class="nav-link {{ 'customers' == request()->path() ? 'active' : ''}}">
               <i class="nav-icon far fa-address-book "></i>
               <p>
                 Customers
@@ -204,7 +217,7 @@
           </li>
 
           <li class="nav-item ">
-            <a href="/trips" class="nav-link">
+            <a href="/trips" class="nav-link {{ 'trips' == request()->path() ? 'active' : ''}}">
               <i class="nav-icon far fa-address-book "></i>
               <p>
                 Trips
@@ -212,10 +225,19 @@
             </a>
           </li>
 
+          <li class="nav-item ">
+            <a href="/routes" class="nav-link {{ 'routes' == request()->path() ? 'active' : ''}}">
+              <i class="nav-icon far fa-address-book "></i>
+              <p>
+                Routes
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item">
             <form action="/logout" method="post" id="logout-form">
               @csrf
-              <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">
+              <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link ">
                 <i class="nav-icon far fa-circle"></i>
                 <p>
                   Logout                

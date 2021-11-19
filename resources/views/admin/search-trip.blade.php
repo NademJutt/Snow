@@ -14,18 +14,13 @@
     width:1600px;
     max-width:2000px;
     overflow-x:scroll;
-  }
-  .container{
-    background: gray;
-    margin: 3px;
-  }
-  h6{
-    padding-top: 20px;
-  }
-  .ab{margin-top: 15px;}
-  .night{margin-top: 40px;}
-
+}
+.container{
+  background: gray;
+  margin: 10px;
+}
   </style>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -34,161 +29,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6"> 
-          <h1 class="m-0">Trips</h1>
-        </div>
-        <div class="col-sm-4"> 
-
-            <form action="/search_trip" class="form-inline">
-              <div class="form-group">
-                <input type="text" name="query" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Search</button>
-            </form>
-          
-        </div>
-        <div class="col-sm-2">
-          <ol class="breadcrumb float-sm-right">
-            <!-- Search -->
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal">
-              Add New Trip
-            </button>
-          </ol>
-        </div><!-- /.col -->
+          <h1 class="m-0">Result for Trips</h1>
+        </div><!-- /.col --> 
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
-
-  <!-- AddModal -->
-  <div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Trip</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <form action="/store_trip" method="post" autocomplete="off">
-            @csrf
-            
-            <div class="row">
-              <div class="form-group col-md-8">
-              	<label>Trip Name</label>
-                  <input type="text" name="trip_name" class="form-control" required>
-              </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                	<label>Departure Date</label>
-                	<input type="text" name="departure_date" class="form-control date" required>
-                </div>
-             	<div class="form-group col-md-6">
-	            	<label>Return Date</label>
-	            	<input type="text" name="return_date" class="form-control date" required>
-              	</div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                	<label>Booking Close</label>
-                	<input type="text" name="booking_close" class="form-control date" required>
-                </div>
-             	<div class="form-group col-md-6">
-	            	<label>Price $</label>
-	            	<input type="text" name="price" class="form-control" required>
-              	</div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-6">
-                	<label>Late Booking Date</label>
-                	<input type="text" name="late_booking_date" class="form-control date" required>
-                </div>
-             	<div class="form-group col-md-6">
-	            	<label>Late Price $</label>
-	            	<input type="text" name="late_price" class="form-control" required>
-              	</div>
-            </div>
-
-            <div class="row">
-              <div class="form-group col-md-6">
-  	            	<label>Close Trip Booking</label>
-  	            	<input type="text" name="close_trip_booking" class="form-control date" required>
-              </div>
-            </div>
-
-            <div class="container">
-              <div>
-                <p><h6>Special Rates</h6></p>
-              </div>
-
-              <div class="row">
-                <div class="col-md-4">
-                  <p><h6>Staff Kids:</h6></p>
-                </div>
-                <div class="form-group col-md-4">
-                  <label>price</label>
-                  <input type="text" name="special_StaffKid_price" class="form-control">
-                </div>
-               <div class="form-group col-md-4">
-                  <label>Late Price</label>
-                  <input type="text" name="special_StaffKid_latePrice" class="form-control">
-               </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <p><h6>Junier Instructor:</h6></p>
-                </div>
-                <div class="form-group col-md-4">
-                  <input type="text" name="special_JuniorInstructor_price" class="form-control">
-                </div>
-               <div class="form-group col-md-4">
-                  <input type="text" name="special_JuniorInstructor_latePrice " class="form-control">
-               </div>
-              </div>
-
-            </div>
-
-            <div class="row ">
-              <div class="form-group col-md-4">
-                <label>Select Route</label> 
-                <select class="form-select" name="route" required >
-                  <option selected>Select</option>
-                  @foreach($routes as $route)
-                  <option value="{{ $route->route_name }}">{{ $route->route_name }}</option>
-                  @endforeach
-                </select>
-
-              </div>
-              <div class="form-group col-md-4 ab">
-                <label>Status</label>
-                <input type="text" name="status" class="form-control" required>
-              </div>
-              <div class="form-group col-md-4 night" >
-                <input type="checkbox" name="night" value="1">Night?
-              </div>
-            </div>
-    
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Add</button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /.AddModal -->
-
-      @if($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-      @endif
-
 
   <!-- Main content -->
 
@@ -211,7 +57,6 @@
                     <th>Late Booking Date</th>
                     <th>Late Price $</th>
                     <th>Close Trip Booking</th>
-                    <th>Route</th>
                     <th>Action</th>
                   </tr>
                 
@@ -226,7 +71,6 @@
                   <td>{{ $trip->late_booking_date }}</td>
                   <td>{{ $trip->late_price }}</td>
                   <td>{{ $trip->close_trip_booking }}</td>
-                  <td>{{ $trip->route }}</td>
                   <td>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $trip->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>
                     <a href={{"delete_trip/".$trip['id']}}><i class="nav-icon fa fa-trash" ></i> </a>
@@ -254,18 +98,18 @@
                           <div class="row">
                               <div class="form-group col-md-6">
                                 <label>Departure Date</label>
-                                <input type="text" name="departure_date" class="form-control date" value="{{ $trip->departure_date }}">
+                                <input type="date" name="departure_date" class="form-control" value="{{ $trip->departure_date }}">
                               </div>
                             <div class="form-group col-md-6">
                               <label>Return Date</label>
-                              <input type="text" name="return_date" class="form-control date" value="{{ $trip->return_date }}">
+                              <input type="date" name="return_date" class="form-control" value="{{ $trip->return_date }}">
                               </div>
                           </div>
 
                           <div class="row">
                               <div class="form-group col-md-6">
                                 <label>Booking Close</label>
-                                <input type="text" name="booking_close" class="form-control date" value="{{ $trip->booking_close }}">
+                                <input type="text" name="booking_close" class="form-control" value="{{ $trip->booking_close }}">
                               </div>
                             <div class="form-group col-md-6">
                               <label>Price $</label>
@@ -276,7 +120,7 @@
                           <div class="row">
                               <div class="form-group col-md-6">
                                 <label>Late Booking Date</label>
-                                <input type="text" name="late_booking_date" class="form-control date" value="{{ $trip->late_booking_date }}">
+                                <input type="date" name="late_booking_date" class="form-control" value="{{ $trip->late_booking_date }}">
                               </div>
                             <div class="form-group col-md-6">
                               <label>Late Price $</label>
@@ -287,7 +131,7 @@
                           <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Close Trip Booking</label>
-                                <input type="text" name="close_trip_booking" class="form-control date" value="{{ $trip->close_trip_booking }}">
+                                <input type="text" name="close_trip_booking" class="form-control" value="{{ $trip->close_trip_booking }}">
                             </div>
                           </div>
 
@@ -360,15 +204,14 @@
     </div>
   </section>
 
-  {{$trips->links()}}
-
   <!-- /.content -->
 </div>
   <!-- /.content-wrapper -->
 
+
+
+
 @endsection
-
-
 
    
 

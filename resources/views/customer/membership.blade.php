@@ -48,6 +48,8 @@
 
         <h6>How many Memberships do you want to buy ? </h6>
 
+        @include('errors')
+
         <form action="/add_child" method="post" >
           @csrf
           <div class="row">

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Children;
-use App\Models\Customermeta;
+use App\Models\Customermeta; 
 use Sentinel;
 
 class AdminController extends Controller
@@ -57,6 +57,15 @@ class AdminController extends Controller
         ]);
         return redirect()->back()->with('success', 'Customer have been saved successfully.'); 
     }
+
+    //Search Customer
+    public function searchCustomer(Request $request){
+        $data = User::
+        where('first_name', 'like', '%'.$request->input('query').'%')
+        ->get();
+        return view('admin.search-customer',['users'=>$data]);
+    }
+
 
     // Update customer 
     public function updateCustomer(Request $request, $id)
@@ -161,8 +170,6 @@ class AdminController extends Controller
         $kid->delete();
         return redirect()->back()->with('success', 'Childer have been successfully deleted.');
     }
-
-
     
 }
  

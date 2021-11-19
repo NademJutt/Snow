@@ -11,7 +11,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addChild">
         Add New Child 
     </button>
-    </h2>
+  </h2>
 
     @if($message = Session::get('success'))
       <div class="alert alert-success">
@@ -76,7 +76,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Date of Birth</label>
-                  <input type="date" name="dob" class="form-control" required>
+                  <input type="text" name="dob" class="form-control date" required>
                 </div>
                 <div class="form-group col-md-6">
                   <label>Child Mobile Phone #</label>

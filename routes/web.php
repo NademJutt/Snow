@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Admin\TripController;
+use App\Http\Controllers\Admin\RouteController;
  
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,9 @@ Route::post('/logout', [LoginController::class,'logout']);
 
 // Membership
 Route::view('/membership', 'customer.membership');
-Route::post('/add_child', [CustomerController::class,'addChild']);
-Route::post('/store-children', [CustomerController::class,'storeChildren'])->name('store_children');
-Route::post('/store_customer', [CustomerController::class,'storeCustomer']);
+Route::any('/add_child', [CustomerController::class,'addChild']);
+Route::any('/store-children', [CustomerController::class,'storeChildren'])->name('store_children');
+Route::any('/store_customer', [CustomerController::class,'storeCustomer']);
 Route::get('/thankyou', [CustomerController::class,'thankYou']);
 
 
@@ -41,9 +43,28 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('/update-customer/{id}', [AdminController::class,'updateCustomer']);
 	Route::get('/customershow/{id}', [AdminController::class,'customerShow']);
 	Route::get('/customerdelete/{id}', [AdminController::class,'customerDelete']);
+	Route::get('/search_customer',[AdminController::class,'searchCustomer']);
+	
 	Route::post('/store-child', [AdminController::class,'storeChild']);
 	Route::post('/update-child/{id}', [AdminController::class,'updateChild']);
 	Route::get('/childdelete/{id}', [AdminController::class,'childDelete']);
+
+	// Trips
+	Route::get('/trips', [TripController::class,'trips']);
+	Route::post('/store_trip', [TripController::class,'storeTrip']);
+	Route::post('/update_trip/{id}', [TripController::class,'updateTrip']);
+	Route::get('/delete_trip/{id}', [TripController::class,'deleteTrip']);
+	Route::get('search_trip',[TripController::class,'searchTrip']);
+
+	//Route
+	Route::get('/routes', [RouteController::class,'routes']);
+	Route::post('/store_route', [RouteController::class,'storeRoute']);
+	Route::get('/routeshow/{id}', [RouteController::class,'routeShow']);
+
+
+
+	// Location
+	Route::get('/locations', [LocationController::class,'Locations']);
 
 });
 
