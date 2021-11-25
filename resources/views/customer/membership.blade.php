@@ -27,6 +27,47 @@
 
   }
 
+  .nav>li>a.btn {
+    padding: 1rem 1.8rem;
+    color: #fff;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Proxima Nova Rg', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .2rem;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #777;
+}
+.btn.btn-style1 {
+    border-color: #ccc;
+    color: #fff;
+}
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+.btn {
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    border: 0.2rem solid #b91818;
+    border-radius: 10rem;
+}
+
+
+
+
+
+
+
+
+
   input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -38,7 +79,18 @@
   <body>
 
     <div class="header">
-        <img src="{{ asset('img/snow.jpg')}}">
+      <img src="{{ asset('img/snow.jpg')}}" >
+
+    <nav class="nav navbar-default">
+      <div class="container-fluid clearfix">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="/purchase_trip" class="btn btn-style1">PURCHASE TRIP</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     </div>
 
     <div class="container">

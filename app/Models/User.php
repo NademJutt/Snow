@@ -24,5 +24,10 @@ class User extends EloquentUser
         return $this->hasMany(Children::class);
     }
 
+    public function trips()
+    {
+        return $this->belongsToMany(Trip::class, 'user_trip', 'user_id', 'trip_id');
+    }
+
 
 }

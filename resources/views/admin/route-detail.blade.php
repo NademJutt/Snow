@@ -126,7 +126,7 @@
                   <td>{{ $location->location_description }}</td>
                   <td>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $location->id }}"> <i class="nav-icon fa fa-edit" ></i></a>
-                    <a href={{url('/')}}/{{"childdelete/".$location['id']}}><i class="nav-icon fa fa-trash" ></i></a> 
+                    <a href={{url('/')}}/{{"locationdelete/".$location['id']}}><i class="nav-icon fa fa-trash" ></i></a> 
 
                   </td>
 

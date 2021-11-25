@@ -9,7 +9,9 @@ use App\Models\Children;
 use App\Models\Customermeta;
 use Sentinel;
 use Session;
-//use App\Mail\CustomerMail;
+use App\Models\Trip;
+use App\Models\Route;
+use App\Models\Location;
 
 class CustomerController extends Controller
 { 
@@ -82,6 +84,7 @@ class CustomerController extends Controller
         foreach ($childrens as $childern) {
             
             $child = new Children;
+            $child->user_id      =  $user['id'];
             $child->first_name   = $childern['first_name'];
             $child->last_name    = $childern['last_name'];
             $child->category     = $childern['category'];
@@ -89,7 +92,7 @@ class CustomerController extends Controller
             $child->dob          = $childern['dob'];
             $child->childphone   = $childern['childphone'];
             $child->gender       = $childern['gender'];
-            $child->user_id      =  $user['id'];
+            
             $result = $child->save();     
         }
 
@@ -109,4 +112,13 @@ class CustomerController extends Controller
     {
         return view('customer.thankyou');
     }
+
+    public function purchaseTrip()
+    {
+        $trips = Trip::all();
+        $routes = Route::all();
+        return view('customer.purchase-trip', compact('trips' , 'routes'));
+    }
+
+    
 }

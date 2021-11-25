@@ -10,6 +10,8 @@
       Welcome {{ $customer->first_name }} 
     @endif
 
+    <a href="/trip_list" class="btn btn-outline-secondary" role="button" aria-pressed="true">Purchase Trip</a>
+
     </h2>
 
    

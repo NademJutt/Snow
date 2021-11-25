@@ -29,7 +29,6 @@ class CreateTripsTable extends Migration
             $table->string('special_JuniorInstructor_price')->nullable();
             $table->string('special_JuniorInstructor_latePrice')->nullable();
 
-            $table->string('route')->nullable();
             $table->string('status')->nullable();
             $table->boolean('night')->default(0);
 

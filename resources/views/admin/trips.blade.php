@@ -12,8 +12,8 @@
   }
   .table{
     width:1600px;
-    max-width:2000px;
-    overflow-x:scroll;
+    max-width:2000px; 
+    overflow-x:scroll; 
   }
   .container{
     background: gray;
@@ -70,7 +70,7 @@
         </div>
         <div class="modal-body">
 
-          <form action="/store_trip" method="post" autocomplete="off">
+          <form action="{{route('StoreTrip')}}" method="POST" autocomplete="off">
             @csrf
             
             <div class="row">
@@ -148,17 +148,17 @@
                <div class="form-group col-md-4">
                   <input type="text" name="special_JuniorInstructor_latePrice " class="form-control">
                </div>
-              </div>
+              </div> 
 
             </div>
 
             <div class="row ">
               <div class="form-group col-md-4">
                 <label>Select Route</label> 
-                <select class="form-select" name="route" required >
+                <select class="form-select" name="route_id" required >
                   <option selected>Select</option>
                   @foreach($routes as $route)
-                  <option value="{{ $route->route_name }}">{{ $route->route_name }}</option>
+                  <option value="{{ $route->id }}">{{ $route->route_name }}</option>
                   @endforeach
                 </select>
 

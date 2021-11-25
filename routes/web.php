@@ -8,6 +8,8 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\Admin\RouteController;
+use App\Http\Controllers\Frontend\OrderController;
+
  
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,11 @@ use App\Http\Controllers\Admin\RouteController;
 |
 */
   
-Route::get('/', function () {
-    return view('welcome');
-});
+// Auth
+Route::get('/register', [RegistrationController::class,'register']);
+Route::post('/register', [RegistrationController::class,'postRegister']);
+Route::get('/login', [LoginController::class,'login']);
+Route::post('/login', [LoginController::class,'postLogin']);
 
 // Logout
 Route::post('/logout', [LoginController::class,'logout']);
@@ -33,6 +37,13 @@ Route::any('/add_child', [CustomerController::class,'addChild']);
 Route::any('/store-children', [CustomerController::class,'storeChildren'])->name('store_children');
 Route::any('/store_customer', [CustomerController::class,'storeCustomer']);
 Route::get('/thankyou', [CustomerController::class,'thankYou']);
+Route::get('/purchase_trip', [CustomerController::class,'purchaseTrip']);
+
+// Buy Trip
+Route::group(['middleware' => 'customer'], function() {
+	Route::get('/buy_trip', [CustomerController::class,'buyTrip']);
+
+});
 
 
 // Admin
@@ -51,7 +62,7 @@ Route::group(['middleware' => 'admin'], function() {
 
 	// Trips
 	Route::get('/trips', [TripController::class,'trips']);
-	Route::post('/store_trip', [TripController::class,'storeTrip']);
+	Route::post('/store_trip', [TripController::class,'storeTrip'])->name('StoreTrip');
 	Route::post('/update_trip/{id}', [TripController::class,'updateTrip']);
 	Route::get('/delete_trip/{id}', [TripController::class,'deleteTrip']);
 	Route::get('search_trip',[TripController::class,'searchTrip']);
@@ -75,16 +86,18 @@ Route::post('/update_customer', [FrontendController::class,'updateCustomer']);
 Route::post('/store_child', [FrontendController::class,'storeChild']);
 Route::post('/update_child/{id}', [FrontendController::class,'updateChild']);
 Route::get('/child_delete/{id}', [FrontendController::class,'childDelete']);
+Route::get('/trip_list', [FrontendController::class,'tripList']);
+Route::get('/trip_detail/{id}', [FrontendController::class,'tripDetail']);
 
-// Route::group(['middleware' => 'customer'], function() {
-	
-	
-// });
+// Order
+Route::post('/store_order', [OrderController::class,'storeOrder']);
 
-Route::get('/register', [RegistrationController::class,'register']);
-Route::post('/register', [RegistrationController::class,'postRegister']);
-Route::get('/login', [LoginController::class,'login']);
-Route::post('/login', [LoginController::class,'postLogin']);
+Route::get('/my_trips', [OrderController::class,'myTrips']);
+
+
+
+
+
 
 
 

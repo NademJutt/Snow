@@ -9,10 +9,10 @@ use App\Models\Route;
 
 class TripController extends Controller
 {
-    public function trips() 
+    public function trips()  
     { 	
         $trips = Trip::paginate(2);
-        $routes = Route::all();
+        $routes = Route::all(); 
         return view('admin.trips', compact('trips' , 'routes'));
     } 
 
@@ -31,11 +31,16 @@ class TripController extends Controller
         $trip->special_StaffKid_latePrice       = $request->special_StaffKid_latePrice;
         $trip->special_JuniorInstructor_price       = $request->special_JuniorInstructor_price;
         $trip->special_JuniorInstructor_latePrice	       = $request->special_JuniorInstructor_latePrice;
-        $trip->route     							 = $request->route;
         $trip->status    						  = $request->status;
         $trip->night     					 = $request->night;
         
         $trip->save();
+
+                              
+        $route = Route::find($request->route_id);
+        $trip->routes()->attach($route);
+
+
         
         return redirect()->back()->with('success', 'Trip have been saved successfully.'); 
     }

@@ -89,6 +89,12 @@
             </a>
           </li> 
           <li class="nav-item">
+            <a class="nav-link" href="/my_trips">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">My Trips</span>
+            </a>
+          </li> 
+          <li class="nav-item">
             <form action="/logout" method="post" id="logout-form">
               @csrf
               <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">

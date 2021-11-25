@@ -9,6 +9,8 @@ use App\Models\Children;
 use App\Models\Customermeta;
 use Sentinel;
 use Session;
+use App\Models\Trip;
+use App\Models\Route;
 
 class FrontendController extends Controller
 {
@@ -109,4 +111,20 @@ class FrontendController extends Controller
         $kid->delete();
         return redirect()->back()->with('success', 'Childer have been deleted successfully.');
     }
+
+    public function tripList()  
+    {   
+        $trips = Trip::all(); 
+        return view('frontend.trips', compact('trips'));
+    } 
+
+    public function tripDetail($id)
+    {
+        $customer =  Sentinel::getUser();
+        $kids = Children::where('user_id', $customer->id)->get();
+
+        $trip = Trip::find($id);
+        return view('frontend.trip_detail', compact('trip', 'kids'));
+    }
+
 }

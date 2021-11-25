@@ -21,6 +21,6 @@ class CustomerMiddleware
 
             return $next($request);
         else
-            return redirect('/'); 
+            return redirect('/membership');
     }
 }

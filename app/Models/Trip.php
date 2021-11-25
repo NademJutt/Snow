@@ -14,6 +14,11 @@ class Trip extends Model
 
     public function routes()
     {
-        return $this->belongsToMany(Route::class);
+        return $this->belongsToMany(Route::class, 'trip_route', 'trip_id', 'route_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_trip', 'user_id', 'trip_id');
     }
 }

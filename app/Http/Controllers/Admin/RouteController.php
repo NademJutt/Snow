@@ -18,9 +18,11 @@ class RouteController extends Controller
     {
         $route = new Route;
         $route->route_name        	  = $request->route_name;
-        $route->route_description  	  = $request->route_description;
-        
-        $route->save();
+        $route->route_description     = $request->route_description;
+        $route->route_status          = $request->route_status;
+        $route->display_order   	  = $request->display_order;
+         
+        $route->save(); 
         
         return redirect()->back()->with('success', 'Route have been saved successfully.'); 
     }
