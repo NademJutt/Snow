@@ -38,10 +38,11 @@
             @csrf
 
             <input type="hidden" name="trip_price" value="{{ $trip->price }}">
+            <input type="hidden" name="trip_id" value="{{ $trip->id }}">
 
             @foreach($kids as $kid)
 
-            <input type="checkbox" class="checkbox" name="kid" value="kid[{{ $kid->id }}]">
+            <input type="checkbox" class="checkbox" name="kid[]" value="{{ $kid->id }}">
 
             {{ $kid->first_name }} {{ $kid->last_name }}
 

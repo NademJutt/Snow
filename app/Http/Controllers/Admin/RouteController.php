@@ -9,7 +9,7 @@ use App\Models\Route;
 class RouteController extends Controller
 {
      public function routes() 
-    { 	
+    { 	 
         $routes = Route::all();
         return view('admin.routes', compact('routes'));
     } 
@@ -32,5 +32,25 @@ class RouteController extends Controller
         $route = Route::find($id);
         $locations = Route::find($id)->location;
         return view('admin.route-detail', compact('locations','route'));
+    }
+
+    public function deleteRoute($id)
+    {
+        $route = Route::find($id);
+        $route->delete();
+        return redirect()->back()->with('success', 'Route have been successfully deleted.');
+    }
+
+    public function updateRoute(Request $request, $id)
+    {
+        $data = [
+            'route_name'             => $request->input('route_name'), 
+            'route_description'      => $request->input('route_description'), 
+            'route_status'           => $request->input('route_status'), 
+            'display_order'          => $request->input('display_order')   
+        ];
+        Route::where('id', $id)->update($data);
+
+        return redirect()->back()->with('success', 'Route data have been Updated successfully.'); 
     }
 }

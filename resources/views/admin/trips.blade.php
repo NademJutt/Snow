@@ -12,7 +12,7 @@
   }
   .table{
     width:1600px;
-    max-width:2000px; 
+    max-width:2000px;  
     overflow-x:scroll; 
   }
   .container{
@@ -24,6 +24,10 @@
   }
   .ab{margin-top: 15px;}
   .night{margin-top: 40px;}
+  .modal-dialog {
+    max-width: 900px;
+    margin: 1.75rem auto;
+  }
 
   </style>
 

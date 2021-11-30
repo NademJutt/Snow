@@ -22,6 +22,10 @@
   margin-bottom: 10px;
   border: green;
 }
+.modal-dialog {
+    max-width: 900px;
+    margin: 1.75rem auto;
+  }
 
   </style>
 
@@ -203,7 +207,7 @@
                     <th>Action</th>
                   </tr>
                 
-                @foreach($routes as $route)
+                @foreach($routes as $route) 
                 <tr>
                   <td>{{ $route->id }}</td>
                   <td>{{ $route->route_name }}</td>
@@ -229,13 +233,88 @@
                           <form action="{{url('/')}}/update_route/{{ $route->id }}" method="post">
                             @csrf
 
-                            
-                            
+                            <div class="row">
+                              <div class="form-group col-md-4">
+                                <label>Name</label>
+                                  <input type="text" name="route_name" class="form-control" value="{{ $route->route_name }}">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-8">
+                                <label>Short Description</label>
+                                  <input type="text" name="route_description" class="form-control" value="{{ $route->route_description }}">
+                              </div>
+                            </div>
+
+                            <div class="container">
+                              <div>
+                                <h5>Location</h5>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-6">
+                                  <label>Name</label>
+                                  <input type="text" name="location_name" class="form-control date" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label>Map Link</label>
+                                  <input type="text" name="map_link" class="form-control date" >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-6">
+                                  <label>Departs time</label>
+                                  <input type="time" name="departure_time" class="form-control" >
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label>Return time</label>
+                                  <input type="time" name="return_time" class="form-control" >
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="form-group col-md-12">
+                                  <label>Address</label>
+                                  <input type="text" name="address" class="form-control" >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-12">
+                                  <label>Max # of Customers</label>
+                                  <input type="text" name="max_customers" class="form-control" >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-12">
+                                  <label>Description</label>
+                                  <textarea type="text" name="location_description" class="form-control" ></textarea>
+                                </div>
+                              </div>
+
+                              <div>
+                                <button type="submit" class="btn btn-primary add">Add</button>
+                              </div>
+                            </div>
+                            <!-- End Container -->
+                         
+            
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                  <label>Status</label>
+                                  <input type="text" name="route_status" class="form-control" value="{{ $route->route_status }}" >
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-2">
+                                  <label>Display Order</label>
+                                  <input type="text" name="display_order" class="form-control" value="{{ $route->display_order }}">
+                                </div>
+                              </div>
+
                                     
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                          </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                              </div>
                           </form>
 
                           </div>

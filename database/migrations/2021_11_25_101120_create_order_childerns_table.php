@@ -15,7 +15,10 @@ class CreateOrderChildernsTable extends Migration
     {
         Schema::create('order_childerns', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('child_id');
+
+            //$table->timestamps();
         });
     }
 

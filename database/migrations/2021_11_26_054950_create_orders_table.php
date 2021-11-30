@@ -19,7 +19,6 @@ class CreateOrdersTable extends Migration
             $table->integer('trip_id');
             $table->float('trip_price');
             $table->float('total_amount');
-
             $table->timestamps();
         });
     }

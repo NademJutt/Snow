@@ -89,9 +89,9 @@
             </a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" href="/my_trips">
+            <a class="nav-link" href="/orders">
               <i class="icon-paper menu-icon"></i>
-              <span class="menu-title">My Trips</span>
+              <span class="menu-title">Orders</span>
             </a>
           </li> 
           <li class="nav-item">

@@ -9,14 +9,14 @@ use App\Models\Route;
 
 class TripController extends Controller
 {
-    public function trips()  
+    public function trips()   
     { 	
-        $trips = Trip::paginate(2);
+        $trips = Trip::paginate(5);
         $routes = Route::all(); 
         return view('admin.trips', compact('trips' , 'routes'));
     } 
 
-    public function storeTrip(Request $request)
+    public function storeTrip(Request $request) 
     {
         $trip = new Trip;
         $trip->trip_name         = $request->trip_name;
@@ -35,12 +35,9 @@ class TripController extends Controller
         $trip->night     					 = $request->night;
         
         $trip->save();
-
                               
         $route = Route::find($request->route_id);
         $trip->routes()->attach($route);
-
-
         
         return redirect()->back()->with('success', 'Trip have been saved successfully.'); 
     }
@@ -60,11 +57,13 @@ class TripController extends Controller
             'special_StaffKid_latePrice'        => $request->input('special_StaffKid_latePrice'),
             'special_JuniorInstructor_price'        => $request->input('special_JuniorInstructor_price'),
             'special_JuniorInstructor_latePrice'        => $request->input('special_JuniorInstructor_latePrice'),
-            'route'                                  => $request->input('route'),
             'status'                             => $request->input('status'),
             'night'                           => $request->input('night')
         ];
         Trip::where('id', $id)->update($data);
+
+        $route = Route::find($request->route_id);
+        $trip->routes()->sync($route);
 
         return redirect()->back()->with('success', 'Trip data have been Updated successfully.'); 
     }
