@@ -215,7 +215,6 @@
                     <th>Late Booking Date</th>
                     <th>Late Price $</th>
                     <th>Close Trip Booking</th>
-                    <th>Route</th>
                     <th>Action</th>
                   </tr>
                 
@@ -230,7 +229,6 @@
                   <td>{{ $trip->late_booking_date }}</td>
                   <td>{{ $trip->late_price }}</td>
                   <td>{{ $trip->close_trip_booking }}</td>
-                  <td>{{ $trip->route }}</td>
                   <td>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $trip->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>
                     <a href={{"delete_trip/".$trip['id']}}><i class="nav-icon fa fa-trash" ></i> </a>

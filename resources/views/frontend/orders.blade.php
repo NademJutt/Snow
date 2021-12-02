@@ -32,8 +32,8 @@
                 @foreach($orders as $order)
                    <tr>
                       <td>{{ $order->id }}</td>
-                      <td>{{ $order->trip_price }}</td>
-                      <td>{{ $order->total_amount }}</td>
+                      <td>$ {!! number_format((float)($order->trip_price), 2) !!}</td>
+                      <td>$ {!! number_format((float)($order->total_amount), 2) !!}</td>
                       <td>{{ $order->trip->trip_name }}</td>
                       <td>{{ $order->childrens->count() }}</td>
                       <td style="border: none">

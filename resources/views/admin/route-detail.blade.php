@@ -41,11 +41,11 @@
               <div class="row">
                 <div class="form-group col-md-6">
                   <label>Name</label>
-                  <input type="text" name="location_name" class="form-control date" >
+                  <input type="text" name="location_name" class="form-control" >
                 </div>
                 <div class="form-group col-md-6">
                   <label>Map Link</label>
-                  <input type="text" name="map_link" class="form-control date" >
+                  <input type="text" name="map_link" class="form-control" >
                 </div>
               </div>
               <div class="row">

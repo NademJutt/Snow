@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\Admin\RouteController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Admin\OrdersController;
 
  
 /*
@@ -68,9 +69,15 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::get('/delete_route/{id}', [RouteController::class,'deleteRoute']);
 	Route::post('/update_route/{id}', [RouteController::class,'updateRoute']);
 
-
 	// Location
 	Route::get('/locations', [LocationController::class,'Locations']);
+
+	// All Orders
+	Route::get('/all_orders', [OrdersController::class,'allOrders']);
+	Route::get('/search_order',[OrdersController::class,'searchOrder']);
+	Route::get('/order_detail/{id}',[OrdersController::class,'orderDetail']);
+	Route::post('/search_by_date',[OrdersController::class,'searchByDate']);
+
 
 });
 
@@ -87,11 +94,11 @@ Route::group(['middleware' => 'customer'], function() {
 
 	Route::get('/buy_trip',  [FrontendController::class,'tripDetail']);
 
-});
+	// Order
+	Route::post('/store_order', [OrderController::class,'storeOrder']);
+	Route::get('/orders', [OrderController::class,'orders']);
 
-// Order
-Route::post('/store_order', [OrderController::class,'storeOrder']);
-Route::get('/orders', [OrderController::class,'orders']);
+});
 
 
 

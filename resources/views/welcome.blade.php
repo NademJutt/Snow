@@ -158,57 +158,45 @@
 
 
 
-       @foreach($locations as $location)
-                          <tr>
-                            <td>{{ $location->location_name }}</td>
-                            <td>{{ $location->departs_time}}</td>
-                            <td>{{ $location->return_time}}</td>
-                            <td>{{ $location->max_customers}}</td>
-                            
-                            <td>
-                              <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $location->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>
-                              <a href={{"delete_location/".$location['id']}}><i class="nav-icon fa fa-trash" ></i> </a>
-                            </td>
+      class OrdersController extends Controller
+{
+    public function allOrders()
+    {
+        $orders = Order::all();
+        return view('admin.all-orders', compact('orders'));
+    } 
 
-                            - EditModal -
-                            <div class="modal fade" id="EditModal{{ $location->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
+    //Search Order
+    public function searchOrder(Request $request){
+        $data = Order::whereHas('user', function($query) use ($request) {
+            $query->where('first_name', 'like', '%'.$request->input('query').'%');
+        })
+        ->get();
+        return view('admin.search-order',['orders'=>$data]);
+    }
 
-                                    <form action="{{url('/')}}/update_location/{{ $location->id }}" method="post">
-                                      @csrf  
-                                      
-                                              
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                    </form>
+    public function orderDetail($id){
+        $order =Order::where('id', $id)->first();
+        // dd($order);
+        return view('admin.order-detail', compact('order'));
+    }
 
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              - .EditModal -
-                            </tr>
-                          
-                          @endforeach
+    //Search By Date
+    public function searchByDate(Request $request){
 
+        $from_date = $request->input('from_date');
+        $to_date   = $request->input('to_date');
 
+        $data = Order::select()
+            ->where('created_at', '>=', $from_date)
+            ->where('created_at', '<=', $to_date)
+            ->get();
+           
+        return view('admin.search-order-date',['orders'=>$data]);
+    }
 
-
-
-
-
-
-
-
-  
+    
+}
 
 
 
