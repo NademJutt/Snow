@@ -1,28 +1,24 @@
 @extends('layoutadmin.main')
 
 @section('content') 
-
 <style type="text/css">
-  .form-control{ 
-    height: 30px;
-    margin-top: -8px;
-  }
+ 
   label:not(.form-check-label):not(.custom-file-label) {
     font-weight: 600;
-  }
+  } 
   .table{
     width:1600px;
     max-width:2000px;  
     overflow-x:scroll; 
   }
   .container{
-    background: gray;
+    background: gray; 
     margin: 3px;
   }
   h6{
     padding-top: 20px;
   }
-  .ab{margin-top: 15px;}
+ 
   .night{margin-top: 40px;}
   .modal-dialog {
     max-width: 900px;
@@ -40,16 +36,16 @@
         <div class="col-sm-6"> 
           <h1 class="m-0">Trips</h1>
         </div>
-        <div class="col-sm-4"> 
 
-            <form action="/search_trip" class="form-inline">
-              <div class="form-group">
-                <input type="text" name="query" class="form-control" placeholder="Search">
+        <div class="col-sm-4"> 
+          <form action="/trips">
+              <div class="form-group" style="display:flex;">
+                <input type="text" name="query" class="form-control" placeholder="Search" value="{{request('query')}}">
+              <button type="submit" class="btn btn-primary">Search</button> 
               </div>
-              <button type="submit" class="btn btn-default">Search</button>
-            </form>
-          
+          </form>     
         </div>
+
         <div class="col-sm-2">
           <ol class="breadcrumb float-sm-right">
             <!-- Search -->
@@ -158,13 +154,13 @@
 
             <div class="row ">
               <div class="form-group col-md-4">
-                <label>Select Route</label> 
-                <select class="form-select" name="route_id" required >
-                  <option selected>Select</option>
+                <label>Select Route</label>
+                <select class="form-control" id="choices-multiple-remove-button" multiple name="route_id[]">
+                  <option value="">Select</option>
                   @foreach($routes as $route)
-                  <option value="{{ $route->id }}">{{ $route->route_name }}</option>
+                     <option value="{{ $route->id }}">{{ $route->route_name }}</option>
                   @endforeach
-                </select>
+              </select> 
 
               </div>
               <div class="form-group col-md-4 ab">
@@ -225,14 +221,58 @@
                   <td>{{ $trip->departure_date }}</td>
                   <td>{{ $trip->return_date }}</td>
                   <td>{{ $trip->booking_close }}</td>
-                  <td>{{ $trip->price }}</td>
+                  <td>${!! number_format((float)($trip->price), 2) !!}</td>
                   <td>{{ $trip->late_booking_date }}</td>
-                  <td>{{ $trip->late_price }}</td>
+                  <td>${!! number_format((float)($trip->late_price), 2) !!}</td>
                   <td>{{ $trip->close_trip_booking }}</td>
                   <td>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#ShowModal{{ $trip->id }}"> <i class="nav-icon fa fa-eye" ></i> </a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $trip->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>
                     <a href={{"delete_trip/".$trip['id']}}><i class="nav-icon fa fa-trash" ></i> </a>
                   </td>
+
+                  <!-- ShowModal -->
+                  <div class="modal fade" id="ShowModal{{ $trip->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Trip's Routes</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                         <div class="card-body table-responsive p-0 scroll">
+                          <table class="table">
+                            
+                              <tr>
+                                <th>ID</th>
+                                <th>Route Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Display Order</th>
+                                <th>Action</th>
+                              </tr>
+                            
+                            @foreach($trip->routes as $route) 
+                            <tr>
+                              <td>{{ $route->id }}</td>
+                              <td>{{ $route->route_name }}</td>
+                              <td>{{ $route->route_description }}</td>
+                              <td>{{ $route->route_status }}</td>
+                              <td>{{ $route->display_order }}</td>
+                            </tr>
+                            @endforeach
+                          </table>
+                        </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.ShowModal -->
+
+
+
                   <!-- EditModal -->
                   <div class="modal fade" id="EditModal{{ $trip->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -362,15 +402,11 @@
     </div>
   </section>
 
-  {{$trips->links()}}
-
   <!-- /.content -->
 </div>
   <!-- /.content-wrapper -->
 
 @endsection
-
-
 
    
 

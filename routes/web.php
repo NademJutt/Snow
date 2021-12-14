@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\RouteController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Admin\OrdersController;
 
+
+use App\Http\Controllers\Frontend\StripeController;
+
  
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +52,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('/update-customer/{id}', [AdminController::class,'updateCustomer']);
 	Route::get('/customershow/{id}', [AdminController::class,'customerShow']);
 	Route::get('/customerdelete/{id}', [AdminController::class,'customerDelete']);
-	Route::get('/search_customer',[AdminController::class,'searchCustomer']);
+	//Route::get('/search_customer',[AdminController::class,'searchCustomer']);
 	
 	Route::post('/store-child', [AdminController::class,'storeChild']);
 	Route::post('/update-child/{id}', [AdminController::class,'updateChild']);
@@ -60,7 +63,7 @@ Route::group(['middleware' => 'admin'], function() {
 	Route::post('/store_trip', [TripController::class,'storeTrip'])->name('StoreTrip');
 	Route::post('/update_trip/{id}', [TripController::class,'updateTrip']);
 	Route::get('/delete_trip/{id}', [TripController::class,'deleteTrip']);
-	Route::get('search_trip',[TripController::class,'searchTrip']);
+	//Route::get('search_trip',[TripController::class,'searchTrip']);
 
 	//Route
 	Route::get('/routes', [RouteController::class,'routes']);
@@ -74,10 +77,9 @@ Route::group(['middleware' => 'admin'], function() {
 
 	// All Orders
 	Route::get('/all_orders', [OrdersController::class,'allOrders']);
-	Route::get('/search_order',[OrdersController::class,'searchOrder']);
+	// Route::get('/search_order',[OrdersController::class,'searchOrder']);	
+	//Route::post('/search_by_date',[OrdersController::class,'searchByDate']);
 	Route::get('/order_detail/{id}',[OrdersController::class,'orderDetail']);
-	Route::post('/search_by_date',[OrdersController::class,'searchByDate']);
-
 
 });
 
@@ -96,9 +98,17 @@ Route::group(['middleware' => 'customer'], function() {
 
 	// Order
 	Route::post('/store_order', [OrderController::class,'storeOrder']);
-	Route::get('/orders', [OrderController::class,'orders']);
+	Route::get('/orders', [OrderController::class,'customerOrders']);
+
+	Route::post('/buy_this_trip', [OrderController::class, 'buyTrip'])->name('buy_this_trip');
+
 
 });
+
+
+
+Route::get('/stripe-payment', [StripeController::class, 'handleGet']);
+Route::post('/stripe-payment', [StripeController::class, 'handlePost'])->name('stripe.payment');
 
 
 

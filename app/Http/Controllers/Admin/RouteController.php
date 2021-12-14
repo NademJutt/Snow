@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\Route;
 
 class RouteController extends Controller
-{
-     public function routes() 
+{ 
+     public function routes(Request $request) 
     { 	 
-        $routes = Route::all();
+        $query = Route::query();
+
+        if($request->has('query') ) {         
+            $query = Route::where('route_name', 'like', '%'.$request->input('query').'%');
+        }
+
+        $routes =  $query->get();
+
         return view('admin.routes', compact('routes'));
     } 
 

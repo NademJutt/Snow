@@ -9,10 +9,11 @@ use App\Models\User;
 use App\Models\Children;
 use App\Models\Customermeta;
 use Sentinel;
-use Session;
+use Session; 
 use App\Models\Trip;
 use App\Models\Route;
 use App\Models\Order;
+use Carbon\Carbon; 
 
 class OrdersController extends Controller
 {
@@ -24,10 +25,10 @@ class OrdersController extends Controller
         // start query 
         $query = Order::query();
 
-       if($request->has('from_date') &&  $request->has('to_date') ) {
+       if($request->has('from_date') &&  $request->has('to_date')) {
           
-            $query = $query->where('created_at', '>=', $from_date)
-                           ->where('created_at', '<=', $to_date);
+            $query = $query->where('created_at', '>=', Carbon::parse($from_date)->toDateTimeString())
+                           ->where('created_at', '<=', Carbon::parse($to_date)->toDateTimeString());
        }
 
        if($request->has('query') ) {
@@ -36,8 +37,6 @@ class OrdersController extends Controller
                      $query->where('first_name', 'like', '%'.$request->input('query').'%');
                 }); 
         }
-
-
 
 
         $orders =  $query->get();    

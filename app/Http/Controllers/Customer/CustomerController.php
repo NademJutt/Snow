@@ -101,7 +101,7 @@ class CustomerController extends Controller
              $message->to($user->email);
 
              $message->subject("Hello $user->first_name,
-                        reset your password.");
+                        You has purchased membership successfully.");
         });
 
 

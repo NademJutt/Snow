@@ -32,13 +32,28 @@
   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
 
 </head>
  
 <script>
   $(document).ready(function(){
-    $(".date").datepicker({dateFormat:'mm-dd-yy'});
+    $(".date").datepicker({dateFormat:'mm/dd/yy'});
   });
+
+  $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:5,
+    searchResultLimit:5,
+    renderChoiceLimit:5
+    });
+
+});
 
 </script>
 
@@ -64,7 +79,7 @@
           <i class="fas fa-search"></i>
         </a>
         <div class="navbar-search-block">
-          <form class="form-inline">
+          <!-- <form class="form-inline">
             <div class="input-group input-group-sm">
               <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
               <div class="input-group-append">
@@ -76,7 +91,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form> -->
         </div>
       </li>
 
@@ -231,5 +246,6 @@
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
 </body>
 </html>

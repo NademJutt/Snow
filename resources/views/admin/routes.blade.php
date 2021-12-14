@@ -3,15 +3,15 @@
 @section('content') 
 
 <style type="text/css">
-  .form-control{ 
+  /*.form-control{ 
     height: 30px;
     margin-top: -8px;
-  }
+  }*/
   label:not(.form-check-label):not(.custom-file-label) {
     font-weight: 600;
   }
   .container{
-    background: gray; 
+    background: gray;  
   }
   .modal-dialog {
     max-width: 900px;
@@ -38,16 +38,16 @@
         <div class="col-sm-6"> 
           <h1 class="m-0">Routes</h1>
         </div>
-        <div class="col-sm-4"> 
 
-            <form action="/search_route" class="form-inline">
-              <div class="form-group">
-                <input type="text" name="query" class="form-control" placeholder="Search">
+        <div class="col-sm-4"> 
+          <form action="/routes">
+              <div class="form-group" style="display:flex;">
+                <input type="text" name="query" class="form-control" placeholder="Search" value="{{request('query')}}">
+              <button type="submit" class="btn btn-primary">Search</button> 
               </div>
-              <button type="submit" class="btn btn-default">Search</button>
-            </form>
-          
+          </form>     
         </div>
+
         <div class="col-sm-2">
           <ol class="breadcrumb float-sm-right">
             <!-- Search -->
@@ -153,8 +153,6 @@
                <!-- W C  -->
               </table> 
          
-                   
-
             <div class="row">
                 <div class="form-group col-md-4">
                   <label>Status</label>

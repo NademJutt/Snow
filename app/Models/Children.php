@@ -10,6 +10,8 @@ class Children extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $dates = ['dob'];
+
     public function orders() 
     {
         return $this->belongsToMany(Order::class, 'order_childerns', 'order_id', 'child_id');

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Children;
 use App\Models\Customermeta; 
 use Sentinel;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -16,11 +17,26 @@ class AdminController extends Controller
     	return view('admin.index');
     } 
 
-    public function customerList() 
+    public function customerList(Request $request) 
     {
-    	
+        $from_date = $request->input('from_date');
+        $to_date   = $request->input('to_date');
+
         $role = \Sentinel::findRoleBySlug('customer');
-        $users = $role->users()->with('roles')->get();
+        $query = $role->users()->with('roles');
+
+        if($request->has('from_date') &&  $request->has('to_date')) {
+          
+            $query = $query->where('created_at', '>=', Carbon::parse($from_date))
+                           ->where('created_at', '<=', Carbon::parse($to_date));
+       }
+
+        if($request->has('query') ) {         
+            $query = User::where('first_name', 'like', '%'.$request->input('query').'%');
+        }
+
+        $users =  $query->get();
+
     	return view('admin.customers', compact('users'));
     }
 
@@ -56,7 +72,7 @@ class AdminController extends Controller
             'contact'          => $request->contact,
         ]);
         return redirect()->back()->with('success', 'Customer have been saved successfully.'); 
-    }
+    } 
 
     //Search Customer
     public function searchCustomer(Request $request){

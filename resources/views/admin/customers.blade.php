@@ -2,33 +2,65 @@
 
 @section('content')  
 
+<style type="text/css">
+
+.col-md-5 .form-group{
+  display: flex;
+}
+
+.col-md-5 .form-group label{
+  width: 147px;
+  padding-top: 5px;
+}
+
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-5"> 
-          <h1 class="m-0">Customers</h1>
-        </div>
-        <div class="col-sm-4"> 
-
-            <form action="/search_customer" class="form-inline">
-              <div class="form-group">
-                <input type="text" name="query" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Search</button>
-            </form>
-          
-        </div>
-        <div class="col-sm-3">
-          <ol class="breadcrumb float-sm-right">
-            <!-- Button trigger modal -->
+      <div class="row mb-2" >
+        <div class="row col-md-2">
+          <div style="display: flex;"><h1>Customers</h1>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal">
               Add New Customer
             </button>
-          </ol>
-        </div><!-- /.col -->
+          </div>
+        </div>
+
+         <div class="col-md-7" style="padding-left:120px; "> 
+          <form action="/customers">
+           <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label>From Date</label>
+                <input type="text" name="from_date" class="form-control date" value="{{request('from_date')}}" required autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="form-group">
+                <label>To Date</label>
+                <input type="text" name="to_date" class="form-control date" value="{{request('to_date')}}" required autocomplete="off">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-success" style="margin-left: -20px;">Find</button>
+            </div>
+           </div>
+          </form>          
+        </div>
+        
+        <div class="col-sm-3"> 
+          <form action="/customers">
+              <div class="form-group" style="display:flex;">
+                <input type="text" name="query" class="form-control" placeholder="Search" value="{{request('query')}}" required style="width:200px;">
+              <button type="submit" class="btn btn-primary">Search</button> 
+              </div>
+          </form>     
+        </div>
+
+        
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>

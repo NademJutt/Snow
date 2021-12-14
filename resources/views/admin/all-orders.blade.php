@@ -12,7 +12,7 @@
   width: 147px;
   padding-top: 5px;
 }
-
+ 
 
 
 </style>
@@ -22,36 +22,36 @@
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-md-1"> 
+      <div class="row mb-2" >
+        <div class="col-md-2"> 
           <h1 class="m-0">Orders</h1>
         </div>
-        <div class="col-md-7" style="padding-left:100px; "> 
-          <form action="" >
+        <div class="col-md-7" style="padding-left:120px; "> 
+          <form action="/all_orders" >
            <div class="row">
             <div class="col-md-5">
               <div class="form-group">
-                <label>Form Date</label>
-                <input type="text" name="from-date" class=" form-control date" autocomplete="off">
+                <label>From Date</label>
+                <input type="text" name="from_date" class="form-control date" value="{{request('from_date')}}" required autocomplete="off">
               </div>
             </div>
             <div class="col-md-5">
               <div class="form-group">
                 <label>To Date</label>
-                <input type="text" name="to-date" class="form-control date" autocomplete="off">
+                <input type="text" name="to_date" class="form-control date" value="{{request('to_date')}}" required autocomplete="off">
               </div>
             </div>
             <div class="col-md-2">
-              <button class="btn btn-success" style="margin-right:100px;">Find</button>
+              <button type="submit" class="btn btn-success" style="margin-left: -20px;">Find</button>
             </div>
            </div>
           </form>          
         </div>
         
-        <div class="col-sm-4"> 
-          <form action="">
+        <div class="col-sm-3"> 
+          <form action="/all_orders">
               <div class="form-group" style="display:flex;">
-                <input type="text" name="query" class="form-control" placeholder="Search" required style="width:200px; margin-left:70px;">
+                <input type="text" name="query" class="form-control" placeholder="Search" value="{{request('query')}}" required style="width:177px;">
               <button type="submit" class="btn btn-primary">Search</button> 
               </div>
           </form>     
@@ -109,17 +109,17 @@
                     <th>Booking Date</th>
                     <th>Action</th>
                   </tr>
-                
+                 
                 @foreach($orders as $order)
                 
                 <tr>
                   <td>{{ $order->id }}</td>
                   <td>{{ $order->user['first_name'] }}</td>
                   <td>{{ $order->trip->trip_name }}</td>
-                  <td>$ {!! number_format((float)($order->trip_price), 2) !!}</td>
+                  <td>${!! number_format((float)($order->trip_price), 2) !!}</td>
                   <td>{{ $order->childrens->count() }}</td>
-                  <td>$ {!! number_format((float)($order->total_amount), 2) !!}</td>
-                  <td>{{ $order->created_at->format('m/d/y i:h') }}</td>
+                  <td>${!! number_format((float)($order->total_amount), 2) !!}</td>
+                  <td>{{ $order->created_at->format('m/d/y') }}</td>
                   <td>
                     <a href={{"/order_detail/".$order['id']}}>  <i class="nav-icon fa fa-eye" ></i> </a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $order->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>

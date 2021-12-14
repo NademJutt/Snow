@@ -4,15 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Trip;
+use App\Models\Trip; 
 use App\Models\Route;
 
 class TripController extends Controller
 {
-    public function trips()   
+    public function trips(Request $request)    
     { 	
-        $trips = Trip::paginate(5);
+        $query = Trip::query();
         $routes = Route::all(); 
+
+
+        if($request->has('query') ) {         
+            $query = Trip::where('trip_name', 'like', '%'.$request->input('query').'%');
+        }
+
+        $trips =  $query->get();
+
         return view('admin.trips', compact('trips' , 'routes'));
     } 
 
@@ -35,9 +43,16 @@ class TripController extends Controller
         $trip->night     					 = $request->night;
         
         $trip->save();
+
+        $route_ids = $request->input('route_id');
+
+        foreach ($route_ids as $route_id) {
+
+            $route = Route::find($route_id);
+            $trip->routes()->attach($route);    
+        }
                               
-        $route = Route::find($request->route_id);
-        $trip->routes()->attach($route);
+        
         
         return redirect()->back()->with('success', 'Trip have been saved successfully.'); 
     }

@@ -11,7 +11,11 @@
 
     <!-- Main content -->
 
-    <div class="table-responsive">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="table-responsive">
        <table class="table">
        
             <thead>
@@ -36,6 +40,11 @@
           
           @endforeach
        </table>
+    </div>
+    
+         
+        </div>
+      </div>
     </div>
 
     

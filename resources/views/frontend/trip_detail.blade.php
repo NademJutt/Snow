@@ -15,7 +15,7 @@
   <div class="content-wrapper">
     
   <h2> Buy Trip </h2>
-
+ 
    
     @include('errors')
 
@@ -30,7 +30,7 @@
 
             <p>Trip Name : {{ $trip->trip_name }}</p>
 
-            <p>Price for 1 child :      {{ $trip->price }}</p>
+            <p>Price for 1 child : ${!! number_format((float)($trip->price), 2) !!}</p>
 
           </h3>
 

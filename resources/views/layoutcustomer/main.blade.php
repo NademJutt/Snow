@@ -32,7 +32,7 @@
 
 <script>
   $(document).ready(function(){
-    $("#date").datepicker({dateFormat:'mm-dd-yy'});
+    $("#date").datepicker({dateFormat:'mm/dd/yy'});
   });
 </script>
 
@@ -48,15 +48,26 @@
           <span class="icon-menu"></span>
         </button>
       
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="/customer_dashboard" data-toggle="dropdown">
-              <?php $user_name = Sentinel::getUser()->first_name ?>
-              <h2>{{ $user_name }}</h2>
+        <div class="navbar-nav navbar-nav-right">
+
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:11px; width:159px">
+                  <?php $user_name = Sentinel::getUser()->first_name ?>
+                  {{ $user_name }}
+                </button>
+                <div class="dropdown-menu">
+                  <form action="/logout" method="post" id="logout-form">
+                    @csrf
+                    <a href="#" onclick="document.getElementById('logout-form').submit()" class="dropdown-item">
+                      Logout
+                    </a>
+                  </form>
+                </div>
+              </div>
               
-            </a>
-          </li>
-        </ul>
+              
+                   
+        </div>
       </div>
     </nav>
 

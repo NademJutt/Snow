@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <!-- /.Modal -->
+    <!-- /.Modal --> 
 
     <br>
 
@@ -132,7 +132,7 @@
                 <td>{{ $kid->first_name }} {{ $kid->last_name }}</td>
                 <td>{{ $kid->category }}</td>
                 <td>{{ $kid->experience }}</td>
-                <td>{{ $kid->dob }}</td>
+                <td>{{ $kid->dob->format('m/d/y') }}</td>
                 <td>{{ $kid->childphone }}</td>
                 <td>{{ $kid->gender }}</td>
                 <td>
@@ -190,7 +190,7 @@
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label>Date of Birth</label>
-                              <input type="date" name="dob" class="form-control" value="{{ $kid->dob }}">
+                              <input type="text" name="dob" class="form-control date" value="{{ $kid->dob }}">
                             </div>
                             <div class="form-group col-md-6">
                               <label>Child Mobile Phone #</label>
@@ -220,7 +220,8 @@
 
               </tr>
               @endforeach
-            </table>
+           </table>
+           
           </div>
         </div>
       </div>

@@ -13,12 +13,7 @@
         </div>
         <div class="col-sm-4"> 
 
-            <form action="/search_order" class="form-inline">
-              <div class="form-group">
-                <input type="text" name="query" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Search</button>
-            </form>
+           
           
         </div>
         <div class="col-sm-3">
@@ -87,7 +82,7 @@
                   <td>{{ $kid->first_name }} {{ $kid->last_name }}</td>
                   <td>{{ $kid->category }}</td>
                   <td>{{ $kid->experience }}</td>
-                  <td>{{ $kid->dob }}</td>
+                  <td>{{ $kid->dob->format('m/d/y') }}</td>
                   <td>{{ $kid->childphone }}</td>
                   <td>{{ $kid->gender }}</td>
                   <td>
