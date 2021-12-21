@@ -14,9 +14,16 @@ use App\Models\Trip;
 use App\Models\Route; 
 use App\Models\Order;
 use Stripe;
+use Illuminate\Support\Facades\Storage;
+use App\Services\PaymentService;
 
 class OrderController extends Controller
 {
+    public $paymentService;
+    public function __construct(PaymentService $paymentService )
+    {
+        $this->paymentService = $paymentService;
+    }
     public function storeOrder(Request $request){
 
         $request->session()->forget('kids');
@@ -54,18 +61,13 @@ class OrderController extends Controller
         $kids = session('kids');
         $order_data = session('order');
 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $stripe_response =  Stripe\Charge::create ([
-                                "amount"        => 100 * $order_data['total_amount'],
-                                "currency"      => "usd",
-                                "source"        => $request->stripeToken,
-                                "description"   => "Payment from Trip Booking."
-                            ]);
+        $total_amount = $order_data['total_amount'];
+        $stripeToken  = $request->stripeToken;
 
-       //dd($stripe_response->id);
-       //dd($stripe_response->source->last4);
+        // Stripe Service
 
-       //\Log::info(print_r($stripe_response , -1));
+         
+        $stripe_response = $this->paymentService->charge($total_amount, $stripeToken);
 
        $order = Order::create([
             'customer_id'          => $order_data['customer_id'],
@@ -80,15 +82,21 @@ class OrderController extends Controller
             $order->childrens()->attach($kid);     
         }
 
+        Mail::send('mails.ordered', $customer->toArray(),
+            function($message) use ( $customer ) {
+             $message->to($customer->email);
 
+             $message->subject("Hello $customer->first_name,
+                        Your order submitted successfully.");
+        }); 
 
-        // Mail::send('mails.ordered', $customer->toArray(), 
-        //     function($message) use ( $customer ) {
-        //      $message->to($customer->email);
+        $data = $customer->toArray(); 
 
-        //      $message->subject("Hello $customer->first_name,
-        //                 Your order submitted successfully.");
-        // });
+        $html = view('mails.ordered', compact('data'))->render();
+
+        $filename = $customer->first_name.".html";
+
+        Storage::disk('local')->put( $filename , $html);
 
         return redirect('/customer_dashboard')->with('success', 'Your order have been saved successfully.');
     }

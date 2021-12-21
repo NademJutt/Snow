@@ -15,6 +15,24 @@
 
 </style>
 
+<script>
+$(document).ready(function(){
+  $(".view_email").click(function(){
+    $.ajax({
+      url:"{{ url('mail_show')}}",
+      type:"get",
+      data: { id: $(this).attr("data-user-id")} ,
+      success:function(result){
+        //console.log(result)
+        $(".mail-body").html(result.file);
+      }
+    });
+  });
+});
+</script>
+
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -23,10 +41,10 @@
       <div class="row mb-2" >
         <div class="row col-md-2">
           <div style="display: flex;"><h1>Customers</h1>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal">
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal">
               Add New Customer
-            </button>
-          </div>
+            </button> -->
+          </div> 
         </div>
 
          <div class="col-md-7" style="padding-left:120px; "> 
@@ -257,7 +275,43 @@
                     <a href={{"customershow/".$user['id']}}>  <i class="nav-icon fa fa-eye" ></i> </a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#EditModal{{ $user->id }}"> <i class="nav-icon fa fa-edit" ></i> </a>
                     <a href={{"customerdelete/".$user['id']}}><i class="nav-icon fa fa-trash" ></i> </a>
+
+                    <a class="view_email" href="#" 
+                        data-bs-toggle="modal"
+                        data-user-id="{{ $user->id }}"
+                        data-bs-target="#MailModal{{ $user->id }}">
+                        <i class="nav-icon fa fa-envelope" ></i>
+                    </a>
+
+
+                    <!-- <a href={{"mail_detail/".$user['id']}}><i class="nav-icon fa fa-envelope" ></i> </a> -->
+
+
                   </td>
+
+                  <!-- MailModal -->
+                  <div class="modal fade" id="MailModal{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Mail Details</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                          <p class="mail-body">
+                          </p>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" href={{"resend_mail/".$user['id']}}>Resend</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /MaillModal -->
+
                   <!-- EditModal -->
                   <div class="modal fade" id="EditModal{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -400,7 +454,8 @@
                         </div>
                       </div>
                     </div>
-                    <!-- /.EditModal -->
+                  </div>
+                  <!-- /EditModal -->
                   </tr>
                 
                 @endforeach

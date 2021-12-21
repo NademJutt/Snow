@@ -37,8 +37,6 @@
                       <td>{{ $order->childrens->count() }}</td>
                    </tr> 
 
-                   <br>
-
                     <ul>
                     <tr>
                       <th>ID</th>
